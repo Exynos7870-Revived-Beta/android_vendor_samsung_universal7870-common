@@ -4,7 +4,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter a3y17lte a5y17lte a6lte j6lte j7velte j7xelte j7y17lte on7xelte,$(TARGET_DEVICE)),)
+ifneq ($(filter a3y17lte a5y17lte a6lte j5y17lte j6lte j7velte j7xelte j7y17lte on7xelte,$(TARGET_DEVICE)),)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libGLES_mali
@@ -35,6 +35,8 @@ $(SYMLINKS):
 	@echo "Symlink: libOpenCL.so.1.1"
 	$(hide) ln -sf egl/libGLES_mali.so $@/lib/libOpenCL.so.1.1
 	$(hide) ln -sf egl/libGLES_mali.so $@/lib64/libOpenCL.so.1.1
+	@echo "Symlink: libgui.so"
+	$(hide) ln -sf libgui_vendor.so $@/lib/libgui.so
 
 ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
 	$(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
@@ -85,6 +87,7 @@ include $(BUILD_PREBUILT)
 endif
 
 
+ifneq ($(LOCAL_AUDIO_VARIANT_DIR),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := libaudior7870
 LOCAL_MODULE_OWNER := samsung
@@ -285,5 +288,6 @@ ifeq ($(TARGET_BOARD_HAS_M10LTE_AUDIO_HAL),true)
 LOCAL_SHARED_LIBRARIES := libSamsungPostProcessConvertor libaudio-ril libaudior7870 libaudioutils libc++ libc libcutils libdl libfloatingfeature liblog libm libpreprocessing_nxp librecordalive libsamsungDiamondVoice libsecaudioinfo libalsa7870 libtinycompress libutils libvndsecril-client libtfa98xx
 endif
 include $(BUILD_PREBUILT)
+endif
 
 endif
